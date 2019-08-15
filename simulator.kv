@@ -1,0 +1,94 @@
+#:kivy 1.09.0
+
+<Muscle>:
+    #:set offset 10
+    canvas:
+    	Color:
+            rgb: (0.557, 0.294, 0.494)
+        Line:
+            width: 2.
+            ellipse: (self.x, self.y, self.width, self.height)
+
+<MotorUnit>:
+    col: (0.796, 0.357, 0.353)
+    size: 100, 100
+    canvas:
+        Color:
+            rgb: self.col
+        Line:
+            width: .25
+            ellipse: (self.x, self.y, self.width, self.height)
+
+<Needle>:
+    size: 5, 200
+    canvas:
+        Color:
+            rgb: (255, 255, 255)
+        Line:
+            width: 2.
+            rectangle: (self.x, self.y, self.width, self.height)
+
+<Fibre>:
+    col: (0.918, 0.745, 0.365)
+    size: 5,5
+    canvas:
+        Color:
+            rgb: self.col
+		#Ellipse:
+            #pos: self.pos
+            #size: self.size
+        Line:
+            width: .5
+            ellipse: (self.x, self.y, self.width, self.height)
+
+<ZoomBox>:
+    opacity: 0.2
+    canvas:
+        Color:
+            rgb: (0.529, 0.808, 0.922)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<Simulator>:
+    currentID: id_label
+    Muscle:
+        id: muscle
+    Label:
+        id: id_label
+        pos: 280, 20
+        size: 25,25
+        text: '1'
+    Slider:
+        id: selector
+        pos: 30, 20
+        size: 220,25
+        min: 1
+        max: 200
+        on_value: root.updateSlider(*args)
+        on_touch_down: if self.collide_point(*args[1].pos): root.disableZoom()
+        on_touch_up: root.enableZoom()
+    Button:
+        id: minusButton
+        pos: 5, 20
+        size: 25, 25
+        text: '-'
+        on_press: root.decrement()
+    Button:
+        id: plusButton
+        pos: 250, 20
+        size: 25, 25
+        text: '+'
+        on_press: root.increment()
+    Button:
+        id: showAll
+        pos: 10, 50
+        size: 70, 30
+        text: "Show All"
+        on_press: root.showAllMU()
+    Button:
+        id: showActive
+        pos: 10, 80
+        size: 70, 30
+        text: "Show Active"
+        on_press: root.showActiveMU()
